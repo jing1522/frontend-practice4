@@ -7,6 +7,7 @@ const scores = [
   { name: '吴九', score: 105 },   // 超出满分
   { name: '郑十', score: -3 }     // 负分
 ];
+console.table(scores)
 const cleanScores = (list)=>list.filter(s=>s.score>=0&&s.score<=100);
 const average =(list)=>{
     if(list.length===0)return0;
@@ -17,7 +18,10 @@ const average =(list)=>{
 const highest=(list)=> list.reduce((max,s)=>s.score>max?s.score:max,list[0]);
 
 const failed=(list)=> list.filter(s=>s.score<60).map(s=>s.name);
-
+console.log('清洗后：', cleanScores(scores));
+console.log('平均分：', average(cleanScores(scores)));
+console.log('最高分：', highest(cleanScores(scores)));
+console.log('不及格：', failed(cleanScores(scores)));
 const toGrade = (score) => {
   if (score >= 90) return 'A';
   if (score >= 80) return 'B';
@@ -32,6 +36,7 @@ const gradeCount = (list) => {
   list.forEach(s => { result[toGrade(s.score)]++; });
   return result;
 };
+
 // 格式化报告
 const report = (list) => {
   const valid = cleanScores(list);
@@ -49,3 +54,4 @@ try {
 } catch (err) {
   console.error('报告生成失败：', err.message);
 }
+
